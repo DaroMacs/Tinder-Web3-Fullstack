@@ -10,11 +10,11 @@ const style = {
   tinderCardWrapper: `w-full h-full absolute`,
   wrapper: `w-full h-full overflow-hidden bg-no-repeat bg-cover bg-center relative px-8 py-4`,
   space: `flex justify-between h-3/4 items-end mb-6`,
-  name: `flex text-white text-3xl font-extrabold items-center -mb-4`,
-  age: `ml-4 font-semibold text-xl`,
-  walletAddress: `font-bolder text-xl text-white mb-2`,
+  name: `flex text-white text-3xl items-center -mb-4`,
+  age: `ml-4 font-semibold text-lg -mb-1`,
+  walletAddress: `font-bolder text-m text-white mb-2`,
   reactionsContainer: `flex justify-between w-full px-2 gap-5`,
-  buttonContainer: `h-16 w-16 rounded-full flex items-center justify-center cursor-pointer border-2`,
+  buttonContainer: `h-10 w-10 rounded-full flex items-center justify-center cursor-pointer border-2`,
   buttonSymbol: `text-3xl`,
   backColors: `border-white text-white`,
   xColors: `border-red-500 text-red-500`,
@@ -39,7 +39,9 @@ const TinderCardItem = ({ card }: any) => {
     >
       <div
         className={style.wrapper}
-        style={{ backgroundImage: `url('${card.imageUrl}')` }}
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80')`,
+        }}
       >
         <div className={style.space}>
           <div className={style.name}>

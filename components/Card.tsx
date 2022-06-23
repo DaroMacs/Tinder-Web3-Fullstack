@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { SiTinder } from "react-icons/si";
 import CardHeader from "./CardHeader";
 import CardFooter from "./CardFooter";
+import TinderCardItem from "./TinderCardItem";
 // import TinderCardItem from './TinderCardItem'
 
 const style = {
@@ -31,6 +32,7 @@ const Card = () => {
           {/* {cardsData.map((card, index) => (
             <TinderCardItem card={card} key={index} />
           ))} */}
+          <TinderCardItem />
         </div>
       </div>
       <CardFooter />
