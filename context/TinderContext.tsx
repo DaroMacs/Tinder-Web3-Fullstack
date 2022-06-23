@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react";
-// import { useMoralis } from 'react-moralis'
+import { useMoralis } from "react-moralis";
 import { faker } from "@faker-js/faker";
 
 interface props {
@@ -9,8 +9,10 @@ interface props {
 
 interface TinderContextProps {
   cardsData: undefined[];
-  currentAccount: undefined;
+  currentAccount: string;
   currentUser: undefined;
+  connectWallet: () => Promise<void>;
+  disconnectWallet: () => Promise<void>;
 }
 
 export const TinderContext = createContext<TinderContextProps>(
@@ -18,46 +20,46 @@ export const TinderContext = createContext<TinderContextProps>(
 );
 
 export const TinderProvider = ({ children }: props) => {
-  //   const { authenticate, isAuthenticated, user, Moralis } = useMoralis()
+  const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
   const [cardsData, setCardsData] = useState([]);
-  const [currentAccount, setCurrentAccount] = useState();
+  const [currentAccount, setCurrentAccount] = useState<string>("");
   const [currentUser, setCurrentUser] = useState();
 
   //   useEffect(() => {
-  //     checkWalletConnection()
+  //     checkWalletConnection();
 
   //     if (isAuthenticated) {
-  //       requestUsersData(user.get('ethAddress'))
-  //       requestCurrentUserData(user.get('ethAddress'))
+  //       requestUsersData(user.get("ethAddress"));
+  //       requestCurrentUserData(user.get("ethAddress"));
   //     }
-  //   }, [isAuthenticated])
+  //   }, [isAuthenticated]);
 
   //   const checkWalletConnection = async () => {
   //     if (isAuthenticated) {
-  //       const address = user.get('ethAddress')
-  //       setCurrentAccount(address)
-  //       requestToCreateUserProfile(address, faker.name.findName())
+  //       const address = user.get("ethAddress");
+  //       setCurrentAccount(address);
+  //       requestToCreateUserProfile(address, faker.name.findName());
   //     } else {
-  //       setCurrentAccount('')
+  //       setCurrentAccount("");
   //     }
-  //   }
+  //   };
 
-  //   const connectWallet = async () => {
-  //     if (!isAuthenticated) {
-  //       try {
-  //         await authenticate({
-  //           signingMessage: 'Log in using Moralis',
-  //         })
-  //       } catch (error) {
-  //         console.error(error)
-  //       }
-  //     }
-  //   }
+  const connectWallet = async () => {
+    if (!isAuthenticated) {
+      try {
+        await authenticate({
+          signingMessage: "Log in using Moralis",
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
-  //   const disconnectWallet = async () => {
-  //     await Moralis.User.logOut()
-  //     setCurrentAccount('')
-  //   }
+  const disconnectWallet = async () => {
+    await Moralis.User.logOut();
+    setCurrentAccount("");
+  };
 
   //   const handleRightSwipe = async (cardData, currentUserAddress) => {
   //     const likeData = {
@@ -153,8 +155,8 @@ export const TinderProvider = ({ children }: props) => {
   return (
     <TinderContext.Provider
       value={{
-        // connectWallet,
-        // disconnectWallet,
+        connectWallet,
+        disconnectWallet,
         // handleRightSwipe,
         cardsData,
         currentAccount,

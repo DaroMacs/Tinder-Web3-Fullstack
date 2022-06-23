@@ -1,7 +1,7 @@
 import Image from "next/image";
 import fire from "../assets/fire.png";
 import { useContext } from "react";
-// import { TinderContext } from '../context/TinderContext'
+import { TinderContext } from "../context/TinderContext";
 
 const style = {
   wrapper: `h-24 text-white flex-col flex lg:flex-row w-screen items-center px-5 justify-between`,
@@ -16,13 +16,14 @@ const style = {
 };
 
 const Header = () => {
-  //   const { connectWallet, currentAccount, disconnectWallet } =
-  //     useContext(TinderContext)
+  const { connectWallet, currentAccount, disconnectWallet } =
+    useContext(TinderContext);
+  console.log(currentAccount);
 
   return (
     <div
       className={`${style.wrapper} ${
-        true ? "bg-gray-900" : "bg-transparent fixed"
+        currentAccount ? "bg-gray-900" : "bg-transparent"
       }`}
     >
       <div className={style.main}>
@@ -38,7 +39,7 @@ const Header = () => {
         </div>
       </div>
       <div className={style.rightMenu}>
-        {true ? (
+        {currentAccount ? (
           <>
             <div className={style.currentAccount}>
               <Image
@@ -53,13 +54,15 @@ const Header = () => {
             </div>
             <button
               className={style.authButton}
-              // onClick={() => disconnectWallet()}
+              onClick={() => disconnectWallet()}
             >
               Logout
             </button>
           </>
         ) : (
-          <button className={style.authButton}>Login</button>
+          <button className={style.authButton} onClick={() => connectWallet()}>
+            Login
+          </button>
         )}
       </div>
     </div>
