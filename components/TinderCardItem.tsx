@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { TinderContext } from "../context/TinderContext";
+// import { TinderContext } from "../context/TinderContext";
 import { FaUndoAlt } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
@@ -22,12 +22,12 @@ const style = {
   lightningColors: `border-purple-500 text-purple-500`,
 };
 
-const TinderCardItem = ({ card }) => {
-  const { handleRightSwipe, currentAccount } = useContext(TinderContext);
+const TinderCardItem = ({ card }: any) => {
+  //   const { handleRightSwipe, currentAccount } = useContext(TinderContext);
 
-  const onSwipe = (dir) => {
+  const onSwipe = (dir: string) => {
     if (dir === "right") {
-      handleRightSwipe(card, currentAccount);
+      //   handleRightSwipe(card, currentAccount);
     }
   };
 
@@ -43,18 +43,19 @@ const TinderCardItem = ({ card }) => {
       >
         <div className={style.space}>
           <div className={style.name}>
-            {card.name}
-            <span className={style.age}>{card.age}</span>
+            Dario
+            <span className={style.age}>99</span>
           </div>
         </div>
         <div className={style.walletAddress}>
-          {card.walletAddress.slice(0, 6)}...{card.walletAddress.slice(39)}
+          {/* {card.walletAddress.slice(0, 6)}...{card.walletAddress.slice(39)} */}
+          0x7432789432789472389349
         </div>
         <div className={style.reactionsContainer}>
           <div className={`${style.backColors} ${style.buttonContainer}`}>
             <FaUndoAlt
               className={`${style.backColors} ${style.buttonSymbol}`}
-              onClick={() => goBack()}
+              //   onClick={() => goBack()}
             />
           </div>
           <div className={`${style.xColors} ${style.buttonContainer}`}>

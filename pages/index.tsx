@@ -2,7 +2,7 @@ import Card from "../components/Card";
 import Header from "../components/Header";
 
 const style = {
-  wrapper: `vh-screen w-screen flex flex-col bg-[#222229] pb-10`,
+  wrapper: `h-screen w-screen flex flex-col bg-[#222229] pb-10`,
   cardsContainer: `flex flex-col items-center justify-center flex-1`,
 };
 export default function Home() {

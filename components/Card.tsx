@@ -6,7 +6,7 @@ import CardFooter from "./CardFooter";
 // import TinderCardItem from './TinderCardItem'
 
 const style = {
-  wrapper: `h-[45rem] w-[27rem] flex flex-col rounded-lg overflow-hidden`,
+  wrapper: `h-[35rem] w-[27rem] flex flex-col rounded-lg overflow-hidden mt-5`,
   cardMain: `w-full flex-1 relative flex flex-col justify-center items-center bg-gray-500`,
   noMoreWrapper: `flex flex-col justify-center items-center absolute`,
   tinderLogo: `text-5xl text-red-500 mb-4`,
