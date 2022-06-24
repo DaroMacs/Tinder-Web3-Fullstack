@@ -18,7 +18,6 @@ const style = {
 const Header = () => {
   const { connectWallet, currentAccount, disconnectWallet } =
     useContext(TinderContext);
-  console.log(currentAccount);
 
   return (
     <div

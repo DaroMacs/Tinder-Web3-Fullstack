@@ -10,7 +10,7 @@ interface props {
 interface TinderContextProps {
   cardsData: undefined[];
   currentAccount: string;
-  currentUser: undefined;
+  currentUser: string;
   connectWallet: () => Promise<void>;
   disconnectWallet: () => Promise<void>;
 }
@@ -23,26 +23,26 @@ export const TinderProvider = ({ children }: props) => {
   const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
   const [cardsData, setCardsData] = useState([]);
   const [currentAccount, setCurrentAccount] = useState<string>("");
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState("");
 
-  //   useEffect(() => {
-  //     checkWalletConnection();
+  useEffect(() => {
+    checkWalletConnection();
 
-  //     if (isAuthenticated) {
-  //       requestUsersData(user.get("ethAddress"));
-  //       requestCurrentUserData(user.get("ethAddress"));
-  //     }
-  //   }, [isAuthenticated]);
+    if (isAuthenticated) {
+      requestUsersData(user?.get("ethAddress"));
+      requestCurrentUserData(user?.get("ethAddress"));
+    }
+  }, [isAuthenticated]);
 
-  //   const checkWalletConnection = async () => {
-  //     if (isAuthenticated) {
-  //       const address = user.get("ethAddress");
-  //       setCurrentAccount(address);
-  //       requestToCreateUserProfile(address, faker.name.findName());
-  //     } else {
-  //       setCurrentAccount("");
-  //     }
-  //   };
+  const checkWalletConnection = async () => {
+    if (isAuthenticated) {
+      const address = user?.get("ethAddress");
+      setCurrentAccount(address);
+      requestToCreateUserProfile(address, faker.name.findName());
+    } else {
+      setCurrentAccount("");
+    }
+  };
 
   const connectWallet = async () => {
     if (!isAuthenticated) {
@@ -109,48 +109,51 @@ export const TinderProvider = ({ children }: props) => {
   //     }
   //   }
 
-  //   const requestToCreateUserProfile = async (walletAddress, name) => {
-  //     try {
-  //       await fetch(`/api/createUser`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           userWalletAddress: walletAddress,
-  //           name: name,
-  //         }),
-  //       })
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
+  const requestToCreateUserProfile = async (
+    walletAddress: string,
+    name: string
+  ) => {
+    try {
+      await fetch(`/api/createUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userWalletAddress: walletAddress,
+          name: name,
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  //   const requestCurrentUserData = async walletAddress => {
-  //     try {
-  //       const response = await fetch(
-  //         `/api/fetchCurrentUserData?activeAccount=${walletAddress}`,
-  //       )
-  //       const data = await response.json()
+  const requestCurrentUserData = async (walletAddress: string) => {
+    try {
+      const response = await fetch(
+        `/api/fetchCurrentUserData?activeAccount=${walletAddress}`
+      );
+      const data = await response.json();
 
-  //       setCurrentUser(data.data)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
+      setCurrentUser(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  //   const requestUsersData = async activeAccount => {
-  //     try {
-  //       const response = await fetch(
-  //         `/api/fetchUsers?activeAccount=${activeAccount}`,
-  //       )
-  //       const data = await response.json()
+  const requestUsersData = async (activeAccount: string) => {
+    try {
+      const response = await fetch(
+        `/api/fetchUsers?activeAccount=${activeAccount}`
+      );
+      const data = await response.json();
 
-  //       setCardsData(data.data)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
+      setCardsData(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <TinderContext.Provider
